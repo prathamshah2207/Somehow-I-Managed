@@ -1,23 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./Signup.css";
 
-function Signup() {
+const Signup = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    username: "",
+    password: "",
+    display_name: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/api/signup/", formData);
+      alert(res.data.message);
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong!");
+    }
+  };
+
   return (
     <div className="signup-container">
       <div className="glass-card">
-        <h2 className="title">Create Account</h2>
-        <form className="signup-form">
-  <input type="email" placeholder="Email" required />
-  <input type="text" placeholder="Username" required />
-  <input type="password" placeholder="Password" required />
-  <input type="text" placeholder="Display Name" required />
-  <button type="submit">Sign Up</button>
-</form>
-
-        
+        <h2 className="title">Create Your Account</h2>
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="display_name"
+            placeholder="Display Name"
+            value={formData.display_name}
+            onChange={handleChange}
+            required
+          />
+          <button type="submit">Sign Up</button>
+        </form>
       </div>
     </div>
   );
-}
+};
 
 export default Signup;

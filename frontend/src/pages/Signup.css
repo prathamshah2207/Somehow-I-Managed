@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+html, body {
+  height: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +21,9 @@
   overflow: hidden;
 }
 
+/* Glass Card */
 .glass-card {
+  position: relative;
   backdrop-filter: blur(25px);
   background: rgba(255, 255, 255, 0.25);
   border-radius: 25px;
@@ -27,6 +33,20 @@
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.4);
   animation: fadeIn 0.8s ease forwards;
+}
+
+/* Subtle background glow */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  filter: blur(30px);
+  z-index: -1;
 }
 
 .title {
@@ -54,9 +74,13 @@
 .signup-form input:focus {
   background: rgba(255, 255, 255, 0.8);
   transform: scale(1.02);
+  outline: 2px solid rgba(0, 0, 0, 0.15);
 }
 
+/* Button – clean black finish */
 .signup-form button {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   padding: 14px;
   border: none;
@@ -71,14 +95,33 @@
   transition: all 0.3s ease;
 }
 
+.signup-form button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 300%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1)
+  );
+  transition: all 0.5s ease;
+}
+
+.signup-form button:hover::before {
+  left: 100%;
+}
+
 .signup-form button:hover {
   background: rgba(0, 0, 0, 1);
   transform: scale(1.03);
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
 }
 
-
-
+/* Smooth entrance animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -87,5 +130,17 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Responsive for mobile screens */
+@media (max-width: 480px) {
+  .glass-card {
+    width: 90%;
+    padding: 30px 25px;
+  }
+
+  .title {
+    font-size: 24px;
   }
 }
