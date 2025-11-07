@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
 
 # Application definition
 INSTALLED_APPS = [
+    "core",
     "core.apps.CoreConfig",
     "corsheaders",
     "rest_framework",
