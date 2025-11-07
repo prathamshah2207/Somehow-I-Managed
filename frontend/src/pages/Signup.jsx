@@ -20,7 +20,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://127.0.0.1:8000/api/signup/", formData);
+      const res = await axios.post("https://multiplicatively-electrometric-brendan.ngrok-free.dev/api/signup/", formData);
       alert(res.data.message);
     } catch (error) {
       console.error(error);
