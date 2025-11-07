@@ -32,6 +32,8 @@ ALLOWED_HOSTS = [
     ".ngrok-free.dev"
 ]
 
+CSRF_TRUSTED_ORIGINS = ['https://somehow-i-managed.onrender.com']
+
 
 # Application definition
 INSTALLED_APPS = [
