@@ -10,9 +10,6 @@ __pycache__/
 # VS Code
 .vscode/
 
-# Environment vars
-.env
-
 # OS junk
 .DS_Store
 Thumbs.db
