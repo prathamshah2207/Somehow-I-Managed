@@ -22,7 +22,7 @@ const Signup = () => {
     e.preventDefault();
     try {
 
-      const res = await axios.post(`${API_BASE_URL}/api/signup/`, formData);
+      const res = await axios.post(`${API_BASE_URL}/core/signup/`, formData);
       alert(res.data.message);
     } catch (error) {
       console.error(error);
