@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+    ".somehow-i-managed.onrender.com",
     ".ngrok-free.dev"
 ]
 
