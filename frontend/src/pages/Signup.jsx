@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Signup.css";
+import { API_BASE_URL } from "../configs";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,8 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://multiplicatively-electrometric-brendan.ngrok-free.dev/api/signup/", formData);
+
+      const res = await axios.post(`${API_BASE_URL}/api/signup/`, formData);
       alert(res.data.message);
     } catch (error) {
       console.error(error);
