@@ -43,7 +43,7 @@ def login(request):
     except User.DoesNotExist:
         user = None
         
-    if not User:
+    if not user:
         return Response({'error': 'Account not registered with those credentials.'}, status=404)
     
     if authenticate(username=user.username, password=pwd):
