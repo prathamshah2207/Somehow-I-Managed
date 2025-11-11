@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 import dj_database_url
 
+ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1', 'somehowoimanaged.website']
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DATABASES = {
