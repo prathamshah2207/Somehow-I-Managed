@@ -33,8 +33,20 @@ const Signup = () => {
         display_name: "",
       })
     } catch (error) {
-      if (error.response) {
-        alert(error.response.data.error);
+      if (error.response && error.response.data.error) {
+        const errorMsg = error.response.data.error;
+        alert(errorMsg);
+        if (errorMsg.includes("Username")) {
+          setFormData({
+            ...formData,
+            username: "",
+          });
+        } else if (errorMsg.includes("Email")) {
+          setFormData({
+            ...formData,
+            email: "",
+          });
+        }
       } else{
         alert("Something went wrong!");
       }
