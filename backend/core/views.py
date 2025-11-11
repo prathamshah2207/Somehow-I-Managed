@@ -14,8 +14,17 @@ def signup(request):
     pwd = request.data.get('password')
     d_name = request.data.get('display_name')
     
+    if User.objects.filter(username=uname).exists():
+        return Response({'error': 'Username already exists.'}, status=400)
+    
+    if User.objects.filter(email=email).exists():
+        return Response({'error': 'Email already exists.'}, status=400)
+    
+    if len(pwd) < 8:
+        return Response({'error':'Password must be at least 8 characters'}, status=400)
+    
     #Create the user
     user = User.objects.create_user(username=uname, email=email, password=pwd)
-    UserProfile.objects.create(user_credentials=user, display_name = d_name)
+    UserProfile.objects.create(user_credentials=user, display_name=d_name)
     
     return Response({'message': 'Signup Successful!'})

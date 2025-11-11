@@ -24,9 +24,20 @@ const Signup = () => {
 
       const res = await axios.post(`${API_BASE_URL}/core/signup/`, formData);
       alert(res.data.message);
+
+      // reset form if signup succeeds
+      setFormData({
+        email: "",
+        username: "",
+        password: "",
+        display_name: "",
+      })
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong!");
+      if (error.response) {
+        alert(error.response.data.error);
+      } else{
+        alert("Something went wrong!");
+      }
     }
   };
 
