@@ -121,6 +121,25 @@ html, body {
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
 }
 
+/* bottom line links to signup and login page's css*/
+.switch-auth-text {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #111;
+  opacity: 0.9;
+}
+
+.switch-auth-text a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.switch-auth-text a:hover {
+  text-decoration: underline;
+}
+
+
 /* Smooth entrance animation */
 @keyframes fadeIn {
   from {

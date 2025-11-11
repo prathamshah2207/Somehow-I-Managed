@@ -71,7 +71,7 @@ const Login = () => {
             required
           />
           <button type="submit">Log In</button>
-          <p style={{ marginTop: "16px", fontSize: "14px" }}> New here? <a href="#/">Create an account</a></p>
+          <p className="switch-auth-text"> New here? <a href="#/">Create an account</a></p>
         </form>
       </div>
     </div>
