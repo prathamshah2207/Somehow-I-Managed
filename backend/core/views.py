@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .models import UserProfile
 
@@ -28,3 +29,24 @@ def signup(request):
     UserProfile.objects.create(user_credentials=user, display_name=d_name)
     
     return Response({'message': 'Signup Successful!'})
+
+@api_view(['POST'])
+def login(request):
+    email_name = request.data.get('email_name')
+    pwd = request.data.get('password')
+    
+    if not email_name or not pwd:
+        return Response({'error': 'Provide both email/username and password'}, status=400)
+    
+    try:
+        user = User.objects.filter(username=email_name).first() or User.objects.filter(email=email_name).first()
+    except User.DoesNotExist:
+        user = None
+        
+    if not User:
+        return Response('error': 'Account not registered with those credentials.', status=404)
+    
+    if authenticate(username=user.username, password=pwd):
+        return Response({'message': 'Login successful!', 'display_name': user.display_name})
+    else:
+        return Response({'error': 'Incorrect password'}, status=401)
