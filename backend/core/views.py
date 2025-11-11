@@ -44,7 +44,7 @@ def login(request):
         user = None
         
     if not User:
-        return Response('error': 'Account not registered with those credentials.', status=404)
+        return Response({'error': 'Account not registered with those credentials.'}, status=404)
     
     if authenticate(username=user.username, password=pwd):
         return Response({'message': 'Login successful!', 'display_name': user.display_name})
