@@ -46,7 +46,12 @@ def login(request):
     if not user:
         return Response({'error': 'Account not registered with those credentials.'}, status=404)
     
+    
     if authenticate(username=user.username, password=pwd):
-        return Response({'message': 'Login successful!', 'display_name': user.display_name})
+        try:
+            name = UserProfile.objects.get(user_credentials=user).display_name
+        except UserProfile.DoesNotExist:
+            name = user.username
+        return Response({'message': 'Login successful!', 'User': name})
     else:
         return Response({'error': 'Incorrect password'}, status=401)
