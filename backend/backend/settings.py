@@ -14,12 +14,48 @@ import os
 from pathlib import Path
 import dj_database_url
 
-ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1', 'somehowimanaged.website']
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+SECRET_KEY = "django-insecure-i&f$)zi^*5ok+jbm2v^_blx2+6)4*re!0=1p$0+++(@+oem!(i"
+DEBUG = True
 
 ROOT_URLCONF = 'backend.urls'
 
+ALLOWED_HOSTS = [
+    '.onrender.com', 
+    'localhost', 
+    '127.0.0.1', 
+    'somehowimanaged.website'
+]
+CSRF_TRUSTED_ORIGINS = ['https://somehow-i-managed.onrender.com']
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # third-party
+    'rest_framework',
+    'corsheaders',
+
+    # your app
+    'core',
+]
+
+MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL'),
@@ -27,3 +63,12 @@ DATABASES = {
         ssl_require=True
     )
 }
+LANGUAGE_CODE = "en-us"
+
+TIME_ZONE = "UTC"
+
+USE_I18N = True
+
+USE_TZ = True
+
+CORS_ALLOW_ALL_ORIGINS = True
