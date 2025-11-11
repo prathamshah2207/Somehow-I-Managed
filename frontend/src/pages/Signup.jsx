@@ -91,6 +91,7 @@ const Signup = () => {
             required
           />
           <button type="submit">Sign Up</button>
+          <p style={{ marginTop: "16px", fontSize: "14px" }}> Already have an account? <a href="#/login">Log in</a></p>
         </form>
       </div>
     </div>
