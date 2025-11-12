@@ -91,7 +91,7 @@ const Signup = () => {
             required
           />
           <button type="submit">Sign Up</button>
-          <p className="switch-auth-text"> Already have an account? <a href="#/login">Log in</a></p>
+          <p className="switch-auth-text"> Already have an account? <a href="/login">Log in</a></p>
         </form>
       </div>
     </div>
