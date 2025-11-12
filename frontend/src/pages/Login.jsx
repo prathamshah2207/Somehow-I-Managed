@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Signup.css";
 import { API_BASE_URL } from "../configs";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email_name: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -32,6 +35,9 @@ const Login = () => {
         email_name: "",
         password: "",
       });
+
+      navigate("/");
+    
     } catch (error) {
       if (error.response && error.response.data.error) {
         const errorMsg = error.response.data.error;
@@ -71,7 +77,7 @@ const Login = () => {
             required
           />
           <button type="submit">Log In</button>
-          <p className="switch-auth-text"> New here? <a href="/signup">Create an account</a></p>
+          <p className="switch-auth-text"> New here? <Link to="/signup">Create an account</Link></p>
         </form>
       </div>
     </div>
