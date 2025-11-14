@@ -23,7 +23,6 @@ html {
 /* =========================
    Navbar
    ========================= */
-
 .lp-nav {
   position: sticky;
   top: 0;
@@ -32,15 +31,33 @@ html {
   align-items: center;
   justify-content: space-between;
   padding: 14px 7vw;
-  backdrop-filter: blur(18px);
-  background: linear-gradient(
-    to right,
-    rgba(15, 23, 42, 0.96),
-    rgba(15, 23, 42, 0.90),
-    rgba(37, 99, 235, 0.92)
-  );
+  backdrop-filter: blur(20px);
+  background: rgba(15, 23, 42, 0.92); /* deep glassy navy */
   border-bottom: 1px solid rgba(148, 163, 184, 0.45);
   box-shadow: 0 14px 30px rgba(15, 23, 42, 0.35);
+  overflow: hidden;
+}
+
+/* subtle liquid highlight in the top-right */
+.lp-nav::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle at 80% 0%,
+    rgba(59, 130, 246, 0.32),
+    transparent 60%
+  );
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* make sure actual content sits above the glow */
+.lp-nav-left,
+.lp-nav-center,
+.lp-nav-right {
+  position: relative;
+  z-index: 1;
 }
 
 .lp-logo {
@@ -69,6 +86,32 @@ html {
   transform: translateY(-1px);
 }
 
+.lp-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* base button style for Log in / Get started */
+.lp-nav-auth {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  text-decoration: none;           /* remove underline */
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease,
+    border-color 0.2s ease;
+}
+
 .lp-nav-auth-secondary {
   background: transparent;
   color: #e5e7eb;
@@ -76,7 +119,7 @@ html {
 }
 
 .lp-nav-auth-secondary:hover {
-  background: rgba(15, 23, 42, 0.4);
+  background: rgba(15, 23, 42, 0.55);
   transform: translateY(-1px);
 }
 
@@ -91,6 +134,7 @@ html {
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
   transform: translateY(-1px);
 }
+
 
 
 /* =========================

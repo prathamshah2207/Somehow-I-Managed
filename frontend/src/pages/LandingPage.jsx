@@ -49,12 +49,8 @@ function LandingPage() {
         </nav>
 
         <div className="lp-nav-right">
-          <Link to="/login" className="lp-nav-auth lp-nav-auth-secondary">
-            Log in
-          </Link>
-          <Link to="/signup" className="lp-nav-auth lp-nav-auth-primary">
-            Get started
-          </Link>
+          <Link to="/login" className="lp-nav-auth lp-nav-auth-secondary">Log in</Link>
+          <Link to="/signup" className="lp-nav-auth lp-nav-auth-primary">Get started</Link>
         </div>
       </header>
 
