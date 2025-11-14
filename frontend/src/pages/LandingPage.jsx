@@ -6,7 +6,7 @@ function LandingPage() {
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 60000);
+    const id = setInterval(() => setNow(new Date()), 1000); // update every second
     return () => clearInterval(id);
   }, []);
 
@@ -19,6 +19,7 @@ function LandingPage() {
   const formattedTime = now.toLocaleTimeString(undefined, {
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
   });
 
   return (
@@ -88,7 +89,7 @@ function LandingPage() {
             </div>
 
             <p className="lp-hero-footnote">
-              No “productivity porn” dashboards. Just a simple, honest view of
+              No fake productivity dashboards. Just a simple, honest view of
               what actually matters today.
             </p>
           </div>
@@ -110,7 +111,7 @@ function LandingPage() {
                     </div>
                     <div className="lp-timeline-text">
                       <p className="lp-timeline-title">Team stand-up</p>
-                      <p className="lp-timeline-sub">30 min · sync, not a rant</p>
+                      <p className="lp-timeline-sub">30 min · quick sync</p>
                     </div>
                   </div>
                 </li>
@@ -124,7 +125,7 @@ function LandingPage() {
                     <div className="lp-timeline-text">
                       <p className="lp-timeline-title">Proposal draft</p>
                       <p className="lp-timeline-sub">
-                        2 hr focus block · phone on silent
+                        2 hr focus block · no notifications
                       </p>
                     </div>
                   </div>
@@ -138,7 +139,7 @@ function LandingPage() {
                     </div>
                     <div className="lp-timeline-text">
                       <p className="lp-timeline-title">Client call</p>
-                      <p className="lp-timeline-sub">Zoom · link attached</p>
+                      <p className="lp-timeline-sub">Online · link attached</p>
                     </div>
                   </div>
                 </li>
@@ -169,7 +170,8 @@ function LandingPage() {
                 <span className="lp-role-pill">Life admin</span>
               </div>
               <p className="lp-panel-secondary-sub">
-                One timeline, all your identities. No more separate calendars.
+                One timeline for all your identities. No more switching between
+                five different apps.
               </p>
             </div>
           </div>
@@ -180,9 +182,9 @@ function LandingPage() {
           <div className="lp-section-header">
             <h2 className="lp-section-title">Built for people who live in tabs.</h2>
             <p className="lp-section-subtitle">
-              Somehow I Managed isn&apos;t pretending you&apos;re only a &quot;student&quot;
-              or only an &quot;employee&quot;. It&apos;s built for people who are doing
-              all of it at once.
+              Somehow I Managed doesn&apos;t assume you&apos;re just a &quot;student&quot; or just
+              an &quot;employee&quot;. It&apos;s made for people balancing work, study, side
+              projects, and a life.
             </p>
           </div>
 
@@ -190,32 +192,32 @@ function LandingPage() {
             <div className="lp-feature-card lp-animate lp-animate-rise">
               <h3 className="lp-feature-title">One timeline</h3>
               <p className="lp-feature-body">
-                See work, uni, and personal tasks in a single view instead of
-                three half-updated calendars.
+                See everything in one place instead of jumping between random
+                calendars, notes, and group chats.
               </p>
             </div>
 
             <div className="lp-feature-card lp-animate lp-animate-rise lp-delay-1">
               <h3 className="lp-feature-title">Events with context</h3>
               <p className="lp-feature-body">
-                Attach notes, links, and tags so &quot;meeting at 3&quot; actually
-                means something when you see it later.
+                Add notes, links, and tags so you know exactly what “meeting at
+                3 PM” actually means.
               </p>
             </div>
 
             <div className="lp-feature-card lp-animate lp-animate-rise lp-delay-2">
               <h3 className="lp-feature-title">Routines, not chaos</h3>
               <p className="lp-feature-body">
-                Turn recurring mess into simple blocks – morning focus, gym, admin
-                hour – and reuse them.
+                Turn your recurring mess into simple blocks – morning focus,
+                gym, admin hour – and reuse them.
               </p>
             </div>
 
             <div className="lp-feature-card lp-animate lp-animate-rise lp-delay-3">
               <h3 className="lp-feature-title">Stays out of the way</h3>
               <p className="lp-feature-body">
-                Glassy, minimal UI with no gamification spam. Just enough design
-                to keep you calm.
+                Clean, glassy UI with no clutter or badges screaming at you.
+                Just enough design to keep your brain calm.
               </p>
             </div>
           </div>
@@ -226,8 +228,8 @@ function LandingPage() {
           <div className="lp-section-header">
             <h2 className="lp-section-title">How it actually works.</h2>
             <p className="lp-section-subtitle">
-              No 40-step onboarding. You&apos;re three moves away from a timeline
-              that makes sense.
+              No 40-step onboarding. You&apos;re three moves away from a day that
+              looks like it was planned on purpose.
             </p>
           </div>
 
@@ -236,8 +238,8 @@ function LandingPage() {
               <div className="lp-step-badge">Step 1</div>
               <h3 className="lp-how-title">Create your space</h3>
               <p className="lp-how-body">
-                Sign up, add your name, pick the roles you actually play in life.
-                That&apos;s it. No forced team setup or company fields.
+                Sign up, add your name, pick the roles you actually play in
+                life. No company forms, no random fields.
               </p>
             </div>
 
@@ -245,8 +247,8 @@ function LandingPage() {
               <div className="lp-step-badge">Step 2</div>
               <h3 className="lp-how-title">Drop in your events</h3>
               <p className="lp-how-body">
-                Add shifts, classes, calls, exams, deep work blocks – anything
-                that lives in your head or random notes app.
+                Add shifts, classes, calls, exams, and deep work blocks – all
+                the stuff that usually lives in your head.
               </p>
             </div>
 
@@ -254,8 +256,8 @@ function LandingPage() {
               <div className="lp-step-badge">Step 3</div>
               <h3 className="lp-how-title">See the real day</h3>
               <p className="lp-how-body">
-                Get one clean timeline, with clear boundaries for work and
-                shutdown. No &quot;maybe I can squeeze one more thing in&quot; lies.
+                Get one clear timeline with obvious start, middle, and end.
+                When the last block is done, you&apos;re actually done.
               </p>
             </div>
           </div>
@@ -264,10 +266,12 @@ function LandingPage() {
         {/* WHY CHOOSE US */}
         <section id="why" className="lp-section lp-section-why">
           <div className="lp-section-header">
-            <h2 className="lp-section-title">Why not just use a normal calendar?</h2>
+            <h2 className="lp-section-title">
+              Why not just use a normal calendar?
+            </h2>
             <p className="lp-section-subtitle">
-              Because you&apos;re not managing just &quot;events&quot; – you&apos;re managing energy,
-              context, and the 3 different lives you&apos;re living at once.
+              Because your life isn&apos;t just “events”. It&apos;s context, energy, and
+              three different roles fighting for the same 24 hours.
             </p>
           </div>
 
@@ -275,22 +279,22 @@ function LandingPage() {
             <div className="lp-why-card">
               <h3 className="lp-why-title">Timeline-first design</h3>
               <p className="lp-why-body">
-                Instead of tiny squares in a month grid, you get a narrative of
-                your day: what comes first, what comes after, and when you&apos;re done.
+                Instead of tiny squares in a month grid, you see a story of your
+                day: what comes first, what comes after, and when you stop.
               </p>
             </div>
             <div className="lp-why-card">
-              <h3 className="lp-why-title">Built for real life context</h3>
+              <h3 className="lp-why-title">Made for context</h3>
               <p className="lp-why-body">
-                Attach zoom links, notes, and tags per block. You don&apos;t have to
-                dig through DMs or emails to remember &quot;what is this about?&quot;
+                Keep the useful stuff attached to each block – notes, links,
+                tags – so you&apos;re not hunting through chats and email.
               </p>
             </div>
             <div className="lp-why-card">
-              <h3 className="lp-why-title">Doesn&apos;t pretend you&apos;re a robot</h3>
+              <h3 className="lp-why-title">Respects your energy</h3>
               <p className="lp-why-body">
-                The goal is not to pack every free second. It&apos;s to make sure your
-                day is realistic – with space to breathe.
+                The goal isn&apos;t to pack every empty minute. It&apos;s to build a
+                day that&apos;s actually sustainable.
               </p>
             </div>
           </div>
@@ -299,9 +303,11 @@ function LandingPage() {
         {/* FAQ / DOCS STYLE SECTION */}
         <section id="faq" className="lp-section lp-section-faq">
           <div className="lp-section-header">
-            <h2 className="lp-section-title">FAQ — a.k.a. &quot;Do I really need this?&quot;</h2>
+            <h2 className="lp-section-title">
+              FAQ — a.k.a. “Do I really need this?”
+            </h2>
             <p className="lp-section-subtitle">
-              Short answers so you don&apos;t have to scroll through a fake 20-question
+              Quick answers so you don&apos;t have to scroll through a fake 20-question
               FAQ nobody reads.
             </p>
           </div>
@@ -310,42 +316,37 @@ function LandingPage() {
             <div className="lp-faq-item">
               <h3 className="lp-faq-question">Is this only for students?</h3>
               <p className="lp-faq-answer">
-                Nope. It works whether you&apos;re juggling classes, a job, freelancing,
-                or all three. You define the roles; the app just gives you one
-                sanity-preserving timeline.
+                No. It works whether you&apos;re studying, working, freelancing, or
+                doing all of it at the same time.
               </p>
             </div>
 
             <div className="lp-faq-item">
               <h3 className="lp-faq-question">
-                Will I have to re-enter everything every time?
+                Will my stuff still be there when I come back?
               </h3>
               <p className="lp-faq-answer">
-                Your account and events live in a proper database (PostgreSQL on
-                Neon), not your local browser. Log in from anywhere and your
-                timeline follows you.
+                Yes. Once you create an account, your events and routines stay
+                tied to you, so your timeline follows you across devices.
               </p>
             </div>
 
             <div className="lp-faq-item">
               <h3 className="lp-faq-question">
-                What happens if I close the tab or refresh?
+                Do I have to log in every single time?
               </h3>
               <p className="lp-faq-answer">
-                The plan is to keep you signed in with tokens, so your context is
-                there even when you come back after a long day. No daily
-                re-login ritual.
+                The plan is to keep you signed in with secure tokens, so you can
+                pick up where you left off without a daily login ritual.
               </p>
             </div>
 
             <div className="lp-faq-item">
-              <h3 className="lp-faq-question">
-                How much does &quot;Somehow I Managed&quot; cost?
-              </h3>
+              <h3 className="lp-faq-question">How much does it cost?</h3>
               <p className="lp-faq-answer">
-                For now: it&apos;s free while we&apos;re building it out and testing with
-                real people. Later, there might be a paid tier for power users,
-                but the core timeline will always stay simple.
+                Right now, it&apos;s free while it&apos;s being built and tested. Later,
+                there might be a paid tier, but the core timeline experience will
+                stay simple and accessible.
               </p>
             </div>
           </div>
@@ -356,7 +357,9 @@ function LandingPage() {
       <footer className="lp-footer">
         <div className="lp-footer-left">
           <span className="lp-footer-logo">Somehow I Managed</span>
-          <span className="lp-footer-meta">Made by people who hate chaotic days.</span>
+          <span className="lp-footer-meta">
+            Made for people who don&apos;t have a “single focus”.
+          </span>
         </div>
         <div className="lp-footer-links">
           <a href="#hero">Back to top</a>
