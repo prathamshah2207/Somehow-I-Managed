@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./styles/Signup.css";
+import "../styles/Signup.css";
 import { API_BASE_URL } from "../configs";
 import { Link, useNavigate } from "react-router-dom";
 
