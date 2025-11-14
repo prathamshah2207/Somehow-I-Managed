@@ -1,0 +1,112 @@
+.landing-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  margin-left: 40px;
+}
+
+.menu li {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu li:hover {
+  color: #d1e4ff;
+}
+
+/* Buttons */
+.nav-right {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-login,
+.btn-signup {
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn-login {
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-login:hover {
+  background: white;
+  color: #5563DE;
+}
+
+.btn-signup {
+  background: white;
+  color: #5563DE;
+}
+
+.btn-signup:hover {
+  background: #e2e2e2;
+}
+
+/* Center Section */
+.center-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass-calendar {
+  width: 280px;
+  height: 280px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding: 40px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.glass-calendar h3 {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.glass-calendar h1 {
+  font-size: 5rem;
+  margin: 10px 0;
+}
+
+.glass-calendar p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
