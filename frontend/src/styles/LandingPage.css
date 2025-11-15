@@ -30,7 +30,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 7vw;
+  padding: 0 40px;
   backdrop-filter: blur(20px);
   background: rgba(15, 23, 42, 0.92); /* deep glassy navy */
   border-bottom: 1px solid rgba(148, 163, 184, 0.45);
