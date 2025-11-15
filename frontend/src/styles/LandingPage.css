@@ -70,17 +70,17 @@ html {
 
 /* logo image sizing (works well in your current nav height) */
 .lp-logo-img {
-  height: 72px;          /* try 32–36px if you want larger */
+  height: 86px;          /* try 32–36px if you want larger */
   width: auto;
   transition: transform 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
-  filter: brightness(1.4) saturate(1.3) drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+  filter: brightness(1.5) saturate(1.4) drop-shadow(0 2px 2px rgba(0,0,0,0.2));
   user-select: none;
 }
 
 /* subtle micro-interaction */
 .lp-logo-img:hover {
   transform: scale(1.06);
-  filter: brightness(1.5) saturate(1.4);
+  filter: brightness(1.65) saturate(1.5);
 }
 
 /* small screens: keep it tidy */
