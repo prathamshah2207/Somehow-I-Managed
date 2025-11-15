@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/LandingPage.css";
+import SIMLogo from "../images/SIM_horizontal_logo.png";
 
 function LandingPage() {
   const [now, setNow] = useState(new Date());
@@ -26,7 +27,20 @@ function LandingPage() {
       {/* NAVBAR */}
       <header className="lp-nav">
         <div className="lp-nav-left">
-          <div className="lp-logo">Somehow I Managed</div>
+          <a href="https://www.somehowimanaged.website" className="lp-logo" 
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = "https://www.somehowimanaged.website";
+            }}
+            aria-label="Somehow I Managed — Home"
+          >
+            <img
+              src={SIMLogo}
+              alt="Somehow I Managed"
+              className="lp-logo-img"
+              draggable="false"
+            />
+          </a>
         </div>
 
         <nav className="lp-nav-center">
