@@ -1,15 +1,14 @@
 from django.http import HttpResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import status
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .models import UserProfile
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import AllowAny
-from rest_framework import status
 
 def index(request):
     return HttpResponse("Hello, world. We are at the core's index.")
@@ -120,26 +119,51 @@ def logout(request):
     return Response({'message': 'user not authenticated to logout'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT'])
 @permission_classes([AllowAny])
-def me(request):
-    if not request.user.is_authenticated:
-        return Response({'isAuthenticated': False})
+def profile(request):
+    
+    user = request.user
     
     try:
-        profile = UserProfile.objects.get(user_credentials=request.user)
-        display_name = profile.display_name
-        age = profile.age
+        profile = UserProfile.objects.get(user_credentials=user)
     except UserProfile.DoesNotExist:
-        display_name = request.user.username
-        age = None
+        return Response({'error': 'Profile not found'}, status=404)
     
-    return Response({
-        'isAuthenticated': True,
-        'user': {
-            'username': request.user.username,
-            'email': request.user.email,
-            'display_name': display_name,
-            'age': age,
-        }
-    })
+    if request.method == "GET":
+        return Response({
+            "isAuthenticated": True,
+            "user": {
+                "username": user.username,
+                "email": user.email,
+                "display_name": profile.display_name,
+                "age": profile.age,
+            }
+        })
+    
+    if request.method == "PUT":
+        new_age = request.data.get("age")
+
+        # Allow null age or a valid integer
+        if new_age is None or new_age == "":
+            profile.age = None
+        else:
+            try:
+                new_age = int(new_age)
+                if new_age < 0:
+                    return Response({"error": "Age must be a non-negative number."}, status=400)
+                profile.age = new_age
+            except ValueError:
+                return Response({"error": "Invalid age format."}, status=400)
+
+        profile.save()
+
+        return Response({
+            "message": "Profile updated.",
+            "user": {
+                "username": user.username,
+                "email": user.email,
+                "display_name": profile.display_name,
+                "age": profile.age,
+            }
+        })
