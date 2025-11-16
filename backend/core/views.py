@@ -19,6 +19,7 @@ def crsf(request):
     token = get_token(request)
     return Response({'crsfToken': token})
 
+
 @api_view(['GET'])
 def debug(request):
     print("USER:", request.user)
