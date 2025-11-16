@@ -33,9 +33,7 @@ const Login = ({ user, onLoginSuccess }) => {
       const res = await axios.post(
         `${API_BASE_URL}/core/login/`,
         formData,
-        {
-          // later we’ll add withCredentials / CSRF here if needed
-        }
+        { withCredentials: true }
       );
 
       // backend now returns { message, user: { id, username, email, display_name } }
