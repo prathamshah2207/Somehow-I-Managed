@@ -6,18 +6,21 @@ from django.contrib.auth.models import User
 from .models import UserProfile
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.middleware.csrf import get_token
+from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny
+from rest_framework import status
 
 def index(request):
     return HttpResponse("Hello, world. We are at the core's index.")
 
 
 @api_view(['GET'])
+@ensure_csrf_cookie
 @permission_classes([AllowAny])
-def crsf(request):
+def csrf(request):
     token = get_token(request)
-    return Response({'crsfToken': token})
+    return Response({'csrfToken': token})
 
 
 @api_view(['GET'])
@@ -97,18 +100,28 @@ def login(request):
         display_name = profile.display_name
     except UserProfile.DoesNotExist:
         display_name = user.username
-    return Response({'message': 'Login successful!', 'User': display_name})
+    return Response({
+        'message': 'Login successful!', 
+        'user': {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'display_name': display_name,
+        },
+    })
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def logout(request):
-    if request.user.is_authenticed:
+    if request.user.is_authenticated:
         auth_logout(request=request)
-        return Response({'message': 'Logged out'})
-    return Response({'message': 'user not authenticated to logout'})
+        return Response({'message': 'Logged out'}, status=status.HTTP_200_OK)
+    return Response({'message': 'user not authenticated to logout'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def me(request):
     if not request.user.is_authenticated:
         return Response({'isAuthenticated': False})
