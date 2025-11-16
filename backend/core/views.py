@@ -69,7 +69,6 @@ def login(request):
     
     # 3) Create session
     auth_login(request=request, user=user)
-    
     # 4) Get profile data
     try:
         profile = UserProfile.objects.get(user_credentials=user)
@@ -77,3 +76,27 @@ def login(request):
     except UserProfile.DoesNotExist:
         display_name = user.username
     return Response({'message': 'Login successful!', 'User': display_name})
+
+
+@api_view(['GET'])
+def me(request):
+    if not request.user.is_authenticated():
+        return Response({'isAuthenticated': False})
+    
+    try:
+        profile = UserProfile.objects.get(user_credentials=request.user)
+        display_name = profile.display_name
+        age = profile.age
+    except UserProfile.DoesNotExist:
+        display_name = request.user.username
+        age = None
+    
+    return Response({
+        'isAuthenticated': True,
+        'user': {
+            'username': request.user.username,
+            'email': request.user.email,
+            'display_name': display_name,
+            'age': age,
+        }
+    })
