@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Signup.css";
 import { API_BASE_URL } from "../configs";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ user, onLoginSuccess }) => {
   const [formData, setFormData] = useState({
     email_name: "",
     password: "",
   });
 
   const navigate = useNavigate();
+
+  // If already logged in, don’t show login form — send them home
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -25,19 +32,30 @@ const Login = () => {
     try {
       const res = await axios.post(
         `${API_BASE_URL}/core/login/`,
-        formData
+        formData,
+        {
+          // later we’ll add withCredentials / CSRF here if needed
+        }
       );
 
-      const userName = res.data.User;
-      alert(`${res.data.message} Welcome, ${userName}.`);
+      // backend now returns { message, user: { id, username, email, display_name } }
+      const userData = res.data.user;
+      alert(`${res.data.message} Welcome, ${userData.display_name}.`);
 
+      // update global auth state in App.jsx
+      if (onLoginSuccess) {
+        onLoginSuccess(userData);
+      }
+
+      // clear form
       setFormData({
         email_name: "",
         password: "",
       });
 
+      // go to landing/dashboard
       navigate("/");
-    
+
     } catch (error) {
       if (error.response && error.response.data.error) {
         const errorMsg = error.response.data.error;
@@ -77,7 +95,9 @@ const Login = () => {
             required
           />
           <button type="submit">Log In</button>
-          <p className="switch-auth-text"> New here? <Link to="/signup">Create an account</Link></p>
+          <p className="switch-auth-text">
+            New here? <Link to="/signup">Create an account</Link>
+          </p>
         </form>
       </div>
     </div>
