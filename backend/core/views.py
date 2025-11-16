@@ -78,6 +78,14 @@ def login(request):
     return Response({'message': 'Login successful!', 'User': display_name})
 
 
+@api_view(['POST'])
+def logout(request):
+    if request.user.is_authenticed:
+        auth_logout(request=request)
+        return Response({'message': 'Logged out'})
+    return Response({'message': 'user not authenticated to logout'})
+
+
 @api_view(['GET'])
 def me(request):
     if not request.user.is_authenticated():
