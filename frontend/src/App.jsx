@@ -1,68 +1,62 @@
-function App() {
-  const [user, setUser] = useState(null);           // holds user info when logged in
-  const [authChecked, setAuthChecked] = useState(false); // to avoid flicker on first load
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import LandingPage from "./pages/LandingPage";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import { API_BASE_URL } from "./configs";
 
-  // runs once when the app mounts
+function App() {
+  const [user, setUser] = useState(null);
+
+  // fetch current user once on mount
   useEffect(() => {
-    async function loadProfile() {
+    const fetchMe = async () => {
       try {
-        const data = await fetchProfile(); // calls /core/profile/
-        if (data.isAuthenticated) {
-          setUser(data.user);
-        } else {
-          setUser(null);
+        const res = await axios.get(`${API_BASE_URL}/core/me/`, {
+          withCredentials: true,
+        });
+        if (res.data.isAuthenticated) {
+          setUser(res.data.user);
         }
       } catch (err) {
-        console.error("Error fetching profile:", err);
-        setUser(null);
-      } finally {
-        setAuthChecked(true);
+        console.log("me() failed (probably not logged in yet)", err);
       }
-    }
-
-    loadProfile();
+    };
+    fetchMe();
   }, []);
 
-  // called by Login page when login succeeds
-  const handleLoginSuccess = (userData) => {
-    setUser(userData);
-  };
-
-  // called when user clicks "Logout" (we'll wire the button later)
   const handleLogout = async () => {
     try {
-      await logoutRequest(); // backend clears the session
+      await axios.post(
+        `${API_BASE_URL}/core/logout/`,
+        {},
+        { withCredentials: true }
+      );
     } catch (err) {
-      console.error("Logout error:", err);
+      console.log("logout error", err);
     } finally {
       setUser(null);
     }
   };
-
-  // optional: while we don't know yet if user is logged in, show nothing or a loader
-  if (!authChecked) {
-    return null; // or a spinner / skeleton if you want
-  }
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={
-            <LandingPage
-              user={user}
-              onLogout={handleLogout}
-            />
-          }
+          element={<LandingPage user={user} onLogout={handleLogout} />}
         />
-        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/signup"
+          element={<Signup user={user} />}
+        />
         <Route
           path="/login"
           element={
             <Login
               user={user}
-              onLoginSuccess={handleLoginSuccess}
+              onLoginSuccess={(u) => setUser(u)}
             />
           }
         />

@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import "../styles/LandingPage.css";
 import SIMLogo from "../assets/SIM_horizontal_logo.png";
 
-function LandingPage() {
+function LandingPage({ user, onLogout }) {
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 1000); // update every second
+    const id = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
 
@@ -22,12 +22,16 @@ function LandingPage() {
     minute: "2-digit",
   });
 
+  const displayName = user?.display_name || user?.username;
+
   return (
     <div className="lp-root">
       {/* NAVBAR */}
       <header className="lp-nav">
         <div className="lp-nav-left">
-          <a href="https://www.somehowimanaged.website" className="lp-logo" 
+          <a
+            href="https://www.somehowimanaged.website"
+            className="lp-logo"
             onClick={(e) => {
               e.preventDefault();
               window.location.href = "https://www.somehowimanaged.website";
@@ -62,8 +66,43 @@ function LandingPage() {
         </nav>
 
         <div className="lp-nav-right">
-          <Link to="/login" className="lp-nav-auth lp-nav-auth-secondary">Log in</Link>
-          <Link to="/signup" className="lp-nav-auth lp-nav-auth-primary">Get started</Link>
+          {!user && (
+            <>
+              <Link
+                to="/login"
+                className="lp-nav-auth lp-nav-auth-secondary"
+              >
+                Log in
+              </Link>
+              <Link
+                to="/signup"
+                className="lp-nav-auth lp-nav-auth-primary"
+              >
+                Get started
+              </Link>
+            </>
+          )}
+
+          {user && (
+            <>
+              <span className="lp-nav-greeting">
+                Hi, {displayName}
+              </span>
+              <Link
+                to="/profile"
+                className="lp-nav-auth lp-nav-auth-secondary"
+              >
+                Profile
+              </Link>
+              <button
+                type="button"
+                onClick={onLogout}
+                className="lp-nav-auth lp-nav-auth-primary lp-nav-logout-btn"
+              >
+                Log out
+              </button>
+            </>
+          )}
         </div>
       </header>
 
@@ -372,8 +411,24 @@ function LandingPage() {
         </div>
         <div className="lp-footer-links">
           <a href="#hero">Back to top</a>
-          <Link to="/login">Log in</Link>
-          <Link to="/signup">Get started</Link>
+          {!user && (
+            <>
+              <Link to="/login">Log in</Link>
+              <Link to="/signup">Get started</Link>
+            </>
+          )}
+          {user && (
+            <>
+              <Link to="/profile">Profile</Link>
+              <button
+                type="button"
+                onClick={onLogout}
+                className="lp-footer-logout-btn"
+              >
+                Log out
+              </button>
+            </>
+          )}
         </div>
       </footer>
     </div>
