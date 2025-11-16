@@ -24,7 +24,21 @@ def crsf(request):
 def debug(request):
     print("USER:", request.user)
     print("IS AUTH:", request.user.is_authenticated)
-    return Response({"debug": True})
+    
+    if request.user.is_authenticated:
+        user_data = {
+            "id": request.user.id,
+            "username": request.user.username,
+            "email": request.user.email,
+        }
+    else:
+        user_data = None
+
+    return Response({
+        "debug": True,
+        "user": user_data,
+        "is_authenticated": request.user.is_authenticated,
+    })
 
 
 @api_view(['POST'])
