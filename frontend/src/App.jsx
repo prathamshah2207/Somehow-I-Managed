@@ -4,6 +4,7 @@ import axios from "axios";
 import LandingPage from "./pages/LandingPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import { API_BASE_URL } from "./configs";
 
 function App() {
@@ -57,6 +58,15 @@ function App() {
             <Login
               user={user}
               onLoginSuccess={(u) => setUser(u)}
+            />
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              user={user}
+              onUserUpdate={(updated) => setUser(updated)}
             />
           }
         />
