@@ -69,6 +69,7 @@ def login(request):
     
     # 3) Create session
     auth_login(request=request, user=user)
+    
     # 4) Get profile data
     try:
         profile = UserProfile.objects.get(user_credentials=user)
@@ -88,7 +89,7 @@ def logout(request):
 
 @api_view(['GET'])
 def me(request):
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         return Response({'isAuthenticated': False})
     
     try:
