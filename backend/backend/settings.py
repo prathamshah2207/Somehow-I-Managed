@@ -27,7 +27,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1', 
     'somehowimanaged.website'
 ]
-CSRF_TRUSTED_ORIGINS = ['https://somehow-i-managed.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -89,7 +88,31 @@ USE_I18N = True
 
 USE_TZ = True
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://somehowimanaged.website",
+    "https://somehow-i-managed.onrender.com",
+    "http://localhost:5173",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://somehowimanaged.website",
+    "https://somehow-i-managed.onrender.com",
+    "http://localhost:5173",
+]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_NAME = "sim_sessionid"
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 14  # 14 days
+SESSION_COOKIE_SECURE = True            # HTTPS only (Render prod)
+SESSION_COOKIE_SAMESITE = "None"        # required for cross-site cookies (Vercel/Render)
+SESSION_SAVE_EVERY_REQUEST = True       # optional, refresh expiry on use
+
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = "None"
+
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
