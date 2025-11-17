@@ -125,6 +125,9 @@ def profile(request):
     
     user = request.user
     
+    if not user.is_authenticated:
+        return Response({'isAuthenticated': False}, status=200)
+    
     try:
         profile = UserProfile.objects.get(user_credentials=user)
     except UserProfile.DoesNotExist:
@@ -142,7 +145,7 @@ def profile(request):
         })
     
     if request.method == "PUT":
-        new_age = request.data.get("age")
+        new_age = request.data.get("age", None)
 
         # Allow null age or a valid integer
         if new_age is None or new_age == "":

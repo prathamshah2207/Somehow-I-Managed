@@ -6,6 +6,29 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import { API_BASE_URL } from "./configs";
+import axios from "axios";
+import { getCsrfToken } from "./csrf";
+
+// always send cookies
+axios.defaults.withCredentials = true;
+
+// automatically attach X-CSRFToken to unsafe methods
+axios.interceptors.request.use((config) => {
+  const method = (config.method || "get").toUpperCase();
+  const isSafe = ["GET", "HEAD", "OPTIONS", "TRACE"].includes(method);
+
+  if (!isSafe) {
+    const token = getCsrfToken();
+    if (token) {
+      config.headers = config.headers || {};
+      config.headers["X-CSRFToken"] = token;
+    }
+  }
+
+  return config;
+});
+
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,7 +59,7 @@ function App() {
         console.log("profile() failed (probably not logged in yet)", err);
         setUser(null);
       } finally {
-        // ✅ auth check is done (success or fail)
+        // 👇 important: auth check is done either way
         setAuthLoading(false);
       }
     };
@@ -66,15 +89,12 @@ function App() {
           element={
             <LandingPage
               user={user}
-              authLoading={authLoading}   // pass it down
+              authLoading={authLoading}    // 👈 pass it in
               onLogout={handleLogout}
             />
           }
         />
-        <Route
-          path="/signup"
-          element={<Signup user={user} />}
-        />
+        <Route path="/signup" element={<Signup user={user} />} />
         <Route
           path="/login"
           element={

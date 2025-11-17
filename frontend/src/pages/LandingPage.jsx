@@ -391,14 +391,16 @@ function LandingPage({ user, authLoading, onLogout }) {
             Made for people who don&apos;t have a “single focus”.
           </span>
         </div>
-                <div className="lp-footer-links">
+        <div className="lp-footer-links">
           <a href="#hero">Back to top</a>
+
           {!authLoading && !user && (
             <>
               <Link to="/login">Log in</Link>
               <Link to="/signup">Get started</Link>
             </>
           )}
+
           {!authLoading && user && (
             <>
               <Link to="/profile">Profile</Link>
