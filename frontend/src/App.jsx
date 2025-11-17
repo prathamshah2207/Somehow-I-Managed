@@ -14,14 +14,15 @@ function App() {
   useEffect(() => {
     const fetchMe = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/core/me/`, {
+        const res = await axios.get(`${API_BASE_URL}/core/profile/`, {
           withCredentials: true,
         });
         if (res.data.isAuthenticated) {
           setUser(res.data.user);
         }
       } catch (err) {
-        console.log("me() failed (probably not logged in yet)", err);
+        console.log("profile() failed (probably not logged in yet)", err);
+        setUser(null);
       }
     };
     fetchMe();
