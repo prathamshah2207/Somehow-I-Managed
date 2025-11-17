@@ -12,6 +12,14 @@ const Login = ({ user, onLoginSuccess }) => {
 
   const navigate = useNavigate();
 
+  const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+  return null;
+  };
+
+
   // If already logged in, don’t show login form — send them home
   useEffect(() => {
     if (user) {
@@ -30,10 +38,15 @@ const Login = ({ user, onLoginSuccess }) => {
     e.preventDefault();
 
     try {
+      const csrftoken = getCookie("csrftoken");
+
       const res = await axios.post(
         `${API_BASE_URL}/core/login/`,
         formData,
-        { withCredentials: true }
+        {
+          withCredentials: true,
+          headers: csrftoken ? {"X-CSRFToken": csrftoken} : {},
+        }
       );
 
       // backend now returns { message, user: { id, username, email, display_name } }
