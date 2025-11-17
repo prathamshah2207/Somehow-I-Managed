@@ -25,7 +25,7 @@ ALLOWED_HOSTS = [
     '.onrender.com', 
     'localhost', 
     '127.0.0.1', 
-    'somehowimanaged.website'
+    '.somehowimanaged.website'
 ]
 
 INSTALLED_APPS = [
@@ -90,12 +90,12 @@ USE_TZ = True
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    "https://somehowimanaged.website",
+    "https://www.somehowimanaged.website",
     "https://somehow-i-managed.onrender.com",
     "http://localhost:5173",
 ]
 CSRF_TRUSTED_ORIGINS = [
-    "https://somehowimanaged.website",
+    "https://www.somehowimanaged.website",
     "https://somehow-i-managed.onrender.com",
     "http://localhost:5173",
 ]
