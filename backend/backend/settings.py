@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+from corsheaders.defaults import default_headers
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,12 +89,20 @@ USE_I18N = True
 
 USE_TZ = True
 
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS = [
     "https://www.somehowimanaged.website",
     "https://somehow-i-managed.onrender.com",
     "http://localhost:5173",
 ]
+CORS_ORIGIN_WHITELIST = CORS_ALLOWED_ORIGINS
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "X-CSRFToken",
+    "Content-Type",
+]
+
 CSRF_TRUSTED_ORIGINS = [
     "https://www.somehowimanaged.website",
     "https://somehow-i-managed.onrender.com",
