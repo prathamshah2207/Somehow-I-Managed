@@ -1,36 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import "../styles/LandingPage.css";
 import SIMLogo from "../assets/SIM_horizontal_logo.png";
-import { API_BASE_URL } from "../configs";
 
 function LandingPage({ user, onLogout }) {
   const [now, setNow] = useState(new Date());
-  const [auth, setAuth] = useState({
-    loading: true,
-    user: null,
-  });
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(id);
-  }, []);
-
-  // Check current session user when page loads
-  useEffect(() => {
-    axios
-      .get(`${API_BASE_URL}/core/profile/`, { withCredentials: true })
-      .then((res) => {
-        if (res.data.isAuthenticated && res.data.user) {
-          setAuth({ loading: false, user: res.data.user });
-        } else {
-          setAuth({ loading: false, user: null });
-        }
-      })
-      .catch(() => {
-        setAuth({ loading: false, user: null });
-      });
   }, []);
 
   const formattedDate = now.toLocaleDateString(undefined, {
@@ -87,14 +65,11 @@ function LandingPage({ user, onLogout }) {
           </a>
         </nav>
 
-        +        <div className="lp-nav-right">
-          {auth.loading ? null : auth.user ? (
+        <div className="lp-nav-right">
+          {user ? (
             // Logged in → show username linking to /profile
-            <Link
-              to="/profile"
-              className="lp-nav-auth lp-nav-auth-primary"
-            >
-              {auth.user.display_name || auth.user.username}
+            <Link to="/profile" className="lp-nav-auth lp-nav-auth-primary">
+              {user.display_name || user.username}
             </Link>
           ) : (
             // Not logged in → show auth buttons
