@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/LandingPage.css";
 import SIMLogo from "../assets/SIM_horizontal_logo.png";
 
-function LandingPage({ user, onLogout }) {
+function LandingPage({ user, authLoading, onLogout }) {
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -66,7 +66,10 @@ function LandingPage({ user, onLogout }) {
         </nav>
 
         <div className="lp-nav-right">
-          {user ? (
+          {authLoading ? (
+            // still figuring out who you are → show nothing
+            null
+          ) : user ? (
             // Logged in → show username linking to /profile
             <Link to="/profile" className="lp-nav-auth lp-nav-auth-primary">
               {user.display_name || user.username}
@@ -388,15 +391,15 @@ function LandingPage({ user, onLogout }) {
             Made for people who don&apos;t have a “single focus”.
           </span>
         </div>
-        <div className="lp-footer-links">
+                <div className="lp-footer-links">
           <a href="#hero">Back to top</a>
-          {!user && (
+          {!authLoading && !user && (
             <>
               <Link to="/login">Log in</Link>
               <Link to="/signup">Get started</Link>
             </>
           )}
-          {user && (
+          {!authLoading && user && (
             <>
               <Link to="/profile">Profile</Link>
               <button

@@ -9,6 +9,7 @@ import { API_BASE_URL } from "./configs";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);   // 👈 NEW
 
   // fetch current user once on mount
   useEffect(() => {
@@ -34,6 +35,9 @@ function App() {
       } catch (err) {
         console.log("profile() failed (probably not logged in yet)", err);
         setUser(null);
+      } finally {
+        // ✅ auth check is done (success or fail)
+        setAuthLoading(false);
       }
     };
 
@@ -59,7 +63,13 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<LandingPage user={user} onLogout={handleLogout} />}
+          element={
+            <LandingPage
+              user={user}
+              authLoading={authLoading}   // pass it down
+              onLogout={handleLogout}
+            />
+          }
         />
         <Route
           path="/signup"
