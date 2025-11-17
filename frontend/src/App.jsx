@@ -12,20 +12,32 @@ function App() {
 
   // fetch current user once on mount
   useEffect(() => {
-    const fetchMe = async () => {
+    const initAuth = async () => {
+      try {
+        // 1) Get csrftoken cookie
+        await axios.get(`${API_BASE_URL}/core/csrf/`, {
+          withCredentials: true,
+        });
+      } catch (err) {
+        console.log("CSRF init failed", err);
+      }
+
       try {
         const res = await axios.get(`${API_BASE_URL}/core/profile/`, {
           withCredentials: true,
         });
         if (res.data.isAuthenticated) {
           setUser(res.data.user);
+        } else {
+          setUser(null);
         }
       } catch (err) {
         console.log("profile() failed (probably not logged in yet)", err);
         setUser(null);
       }
     };
-    fetchMe();
+
+    initAuth();
   }, []);
 
   const handleLogout = async () => {
