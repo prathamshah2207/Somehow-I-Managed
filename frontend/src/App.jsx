@@ -6,7 +6,6 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import { API_BASE_URL } from "./configs";
-import axios from "axios";
 import { getCsrfToken } from "./csrf";
 
 // always send cookies
