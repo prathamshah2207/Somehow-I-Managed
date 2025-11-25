@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/LandingPage.css";
-import SIMLogo from "../assets/SIM_horizontal_logo.png";
+import SIMLogo from ".../public/SIM_horizontal_logo.png";
 
 function LandingPage({ user, authLoading, onLogout }) {
   const [now, setNow] = useState(new Date());
