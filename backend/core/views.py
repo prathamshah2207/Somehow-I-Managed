@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from .models import UserProfile
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.middleware.csrf import get_token
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 def index(request):
     return HttpResponse("Hello, world. We are at the core's index.")
@@ -110,13 +110,22 @@ def login(request):
     })
 
 
-@api_view(['POST'])
+@csrf_exempt
+@api_view(['POST', 'GET'])
 @permission_classes([AllowAny])
 def logout(request):
+    # End the Django session if it exists
     if request.user.is_authenticated:
-        auth_logout(request=request)
-        return Response({'message': 'Logged out'}, status=status.HTTP_200_OK)
-    return Response({'message': 'user not authenticated to logout'}, status=status.HTTP_401_UNAUTHORIZED)
+        auth_logout(request)
+
+    # Build response and explicitly clear the session cookie
+    resp = Response({'message': 'Logged out'}, status=status.HTTP_200_OK)
+    resp.delete_cookie('sim_sessionid')   # matches SESSION_COOKIE_NAME in settings.py
+
+    # Optional: also clear csrftoken if you want
+    # resp.delete_cookie('csrftoken')
+
+    return resp
 
 
 @api_view(['GET', 'PUT'])
